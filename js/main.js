@@ -1,9 +1,9 @@
 Vue.config.devtools = true
 
 var eventBus = new Vue()
-Vue.component('product',{
+Vue.component('product', {
     props: {
-        premium:{
+        premium: {
             type: Boolean,
             required: true
         }
@@ -62,38 +62,38 @@ Vue.component('product',{
         }
     },
     methods: {
-        addToCart(){
+        addToCart() {
             this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
         },
-        UpdateProduct(index){
+        UpdateProduct(index) {
             this.selectedVariant = index
         }
-        
+
     },
     computed: {
-        title(){
+        title() {
             return this.brand + ' ' + this.product
         },
-        image(){
+        image() {
             return this.variants[this.selectedVariant].variantImage
         },
-        inStock(){
+        inStock() {
             return this.variants[this.selectedVariant].variantQuantity
         },
-        shipping(){
-            if(this.premium){
+        shipping() {
+            if (this.premium) {
                 return "Free"
             }
             return 2.99
         }
     },
-    mounted(){
-        eventBus.$on('review-submitted', productReview =>{
+    mounted() {
+        eventBus.$on('review-submitted', productReview => {
             this.reviews.push(productReview)
         })
     }
 
-    
+
 })
 
 Vue.component('product-review', {
@@ -138,8 +138,8 @@ Vue.component('product-review', {
         }
     },
     methods: {
-        onSubmit(){
-            if(this.name && this.review && this.rating){            
+        onSubmit() {
+            if (this.name && this.review && this.rating) {
                 let productReview = {
                     name: this.name,
                     review: this.review,
@@ -151,11 +151,11 @@ Vue.component('product-review', {
                 this.review = null
                 this.rating = null
             }
-            else{
+            else {
                 this.errors = []
-                if(!this.name) this.errors.push("Name required")
-                if(!this.review) this.errors.push("Review required")
-                if(!this.rating) this.errors.push("Rating required")
+                if (!this.name) this.errors.push("Name required")
+                if (!this.review) this.errors.push("Review required")
+                if (!this.rating) this.errors.push("Rating required")
             }
         }
     }
@@ -208,8 +208,8 @@ var app = new Vue({
         premium: true,
         cart: []
     },
-    methods:{
-        updateCart(id){
+    methods: {
+        updateCart(id) {
             this.cart.push(id)
         }
     }
